@@ -1,6 +1,7 @@
 const express = require('express');
 const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
+const speakerRoute = require('./speaker.route');
 const docsRoute = require('./docs.route');
 const config = require('../../config/config');
 
@@ -15,6 +16,10 @@ const defaultRoutes = [
     path: '/users',
     route: userRoute,
   },
+  {
+    path: '/speaker',
+    route: speakerRoute,
+  }
 ];
 
 const devRoutes = [
@@ -35,5 +40,10 @@ if (config.env === 'development') {
     router.use(route.path, route.route);
   });
 }
+
+
+devRoutes.forEach((route) => {
+  router.use(route.path, route.route);
+});
 
 module.exports = router;
